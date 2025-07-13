@@ -1,0 +1,64 @@
+# Model arguments
+model_name_or_path: path to deepseek-ai/Janus-Pro-7B
+model_revision: main
+torch_dtype: bfloat16
+
+# Data training arguments
+dataset_name: grpo-data
+dataset_configs:
+- all
+# Num processes is less by 1 as vLLM is using 1 GPU
+num_processes: 8
+
+# GRPO trainer config
+bf16: true
+use_vllm: false
+vllm_device: auto
+vllm_gpu_memory_utilization: 0.7
+do_eval: False
+eval_strategy: 'no' #steps
+eval_steps: 100000
+gradient_accumulation_steps: 4
+num_generations: 8
+lr_scheduler_type: cosine
+logging_dir: ../../logs
+save_only_model: true
+### lr scheduler setting###
+learning_rate: 3.0e-06
+use_self_lr_scheduler: true
+warmup_ratio: 0.02
+warm_up_steps: 5
+convert_steps: 75
+convert_lr: 1.0e-6
+min_lr: 2.0e-7
+###########################
+log_level: info
+logging_steps: 1
+logging_strategy: steps
+lr_scheduler_type: cosine
+max_prompt_length: 64
+max_completion_length: 576
+max_steps: -1
+num_train_epochs: 10
+output_dir: path to output ckpt
+model_path: path to deepseek-ai/Janus-Pro-7B
+pretrain_path:  path to post-sft ckpt
+ref_pretrain_path:  path to post-sft ckpt
+overwrite_output_dir: true
+report_to:
+- none
+per_device_eval_batch_size: 8   
+per_device_train_batch_size: 1
+push_to_hub: False
+save_strategy: "steps"
+save_steps: 50
+seed: 42
+warmup_ratio: 0.02
+temperature: 0.9
+weight: 1.0
+datap: data/editing_examples.jsonl
+generate_with_cfg: true
+guidance_scale: 5.0
+reverse: false
+following: 1.0
+preserving: 0.25
