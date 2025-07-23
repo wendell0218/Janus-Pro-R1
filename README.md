@@ -1,6 +1,6 @@
 <h2 align="center" style="line-height: 25px;">
   <img src='https://janus-pro-r1.github.io/static/images/aha.png' width="3%" height="3%" style="vertical-align: middle;">
-  Unlocking Aha Moments via Reinforcement Learning: Advancing Collaborative Visual Comprehension and Generation
+  Janus-Pro-R1: Advancing Collaborative Visual Comprehension and Generation
 </h2>
 
 <p align="center">
