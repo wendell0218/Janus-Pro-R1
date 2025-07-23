@@ -1,0 +1,35 @@
+common:
+    output_path: path/to/output
+    log_path: path/to/logs
+    save_per_iters: 4000 
+    use_bf16: 1
+    use_fp16: 0
+    use_fsdp: 1
+    use_zero: 0
+    random_seed: 1024
+    log_interval: 1
+    machines: 1
+    task: 'editing'
+
+optimize:
+    max_epochs: 7
+    warmup_epochs: 0.1
+
+    lr: 2.0e-5
+    lr_scheduler: 'cosine'
+    optimizer: 'adamw'
+    weight_decay: 0.05
+    betas: [0.9, 0.95]
+    eps: 1.0e-06
+
+model:
+    model_path: path/to/model
+    processor_path: path/to/processor
+
+dataloader:
+    num_workers: 4
+    prefetch_factor: 4
+    sampler_shuffle: False
+    train:
+        batch_size: 4
+        use_local_shuffle: True
