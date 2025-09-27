@@ -26,7 +26,7 @@ from transformers import LlamaTokenizerFast
 from transformers.processing_utils import ProcessorMixin
 
 from .image_processing_vlm import VLMImageProcessor
-from utils import get_conv_template
+from utils.conversation import get_conv_template
 
 
 class DictOutput(object):

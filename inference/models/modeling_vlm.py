@@ -216,7 +216,7 @@ class MultiModalityCausalLM(MultiModalityPreTrainedModel):
         self.loss_fct = torch.nn.CrossEntropyLoss()
 
         language_config = config.language_config
-        language_config._attn_implementation = 'flash_attention_2'
+        # language_config._attn_implementation = 'flash_attention_2'
         self.language_model = LlamaForCausalLM(language_config)
        
         self.language_model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={'use_reentrant': False})

@@ -11,6 +11,8 @@ cd Janus-Pro-R1
 conda create -n janus-pro-r1-sft python=3.11
 conda activate janus-pro-r1-sft
 pip install -r requirements-sft.txt
+
+cd inference
 ```
 
 Then please prepare the model Janus-Pro-R1-7B, which utilizes Janus-Pro-7B as the backbone model. You can download the corresponding model from [🤗https://huggingface.co/midbee/Janus-Pro-R1-7B](https://huggingface.co/midbee/Janus-Pro-R1-7B).
@@ -18,7 +20,7 @@ Then please prepare the model Janus-Pro-R1-7B, which utilizes Janus-Pro-7B as th
 You can conduct the inference process using the following command. ``model_path`` refers to the local path where you have downloaded Janus-Pro-R1-7B.
 
 ```bash
-  python inference/inference.py \
+  python inference.py \
       --model_path $CKPT_PATH \
       --caption "a brown giraffe and a white stop sign" \
       --gen_path "results/samples" \
@@ -27,6 +29,21 @@ You can conduct the inference process using the following command. ``model_path`
       --cfg 5.0 \
       --parallel_size 4
   ```
+
+Additionally, we provide a script for inference scaling, trading longer inference time for higher performance. You can try it using the following command.
+
+```bash
+  python inference_scaling.py \
+      --model_path $CKPT_PATH \
+      --caption "a brown giraffe and a white stop sign" \
+      --gen_path "results/samples" \
+      --reason_path "results/reason.jsonl" \
+      --regen_path "results/regen_samples" \
+      --cfg 5.0 \
+      --parallel_size 4 \
+      --max_iter 10
+  ```
+
 After completing the inference, the structure of the `results` directory will be as follows:
   
   ```text
@@ -52,7 +69,7 @@ Also, to facilitate the reader's understanding, we also split the inference logi
   You can generate images from text prompts using the following command. 
 
   ```bash
-  python inference/t2i.py \
+  python t2i.py \
       --model_path $CKPT_PATH \
       --caption "a brown giraffe and a white stop sign" \
       --gen_path "results/samples" \
@@ -76,7 +93,7 @@ Also, to facilitate the reader's understanding, we also split the inference logi
   Before self-evaluating image-text consistency, ensure that `gen_path` points to a directory with the same structure in the **Text-to-Image Generation**.
 
   ```bash
-  python inference/reflect.py \
+  python reflect.py \
       --model_path $CKPT_PATH \
       --caption "a brown giraffe and a white stop sign" \
       --gen_path "results/samples" \
@@ -88,7 +105,7 @@ Also, to facilitate the reader's understanding, we also split the inference logi
   You can then regenerate higher-quality images based on the initial generation and corresponding reflection using the following command:
 
   ```bash
-  python inference/regen.py \
+  python regen.py \
       --model_path $CKPT_PATH \
       --caption "a brown giraffe and a white stop sign" \
       --gen_path "results/samples" \
